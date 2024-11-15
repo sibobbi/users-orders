@@ -6,4 +6,4 @@ use Illuminate\Support\Facades\Schedule;
 
 Schedule::call(function () {
     \App\Jobs\CancelOrderJob::dispatch();
-})->hourly();
+})->everyMinute();

@@ -16,7 +16,7 @@ return new class extends Migration
             $table->id();
             $table->foreignIdFor(\App\Models\User::class,'user_id');
             $table->foreignIdFor(\App\Models\Payment::class, 'payment_id');
-            $table->tinyInteger('status')->nullable()->default(0);
+            $table->tinyInteger('status')->nullable()->default(1);
             $table->bigInteger('sum');
             $table->timestamps();
         });

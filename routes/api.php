@@ -8,7 +8,7 @@ use App\Http\Controllers\BasketController;
 use App\Http\Controllers\ProductController;
 
 Route::prefix('user')->as('user.')->group(function () {
-   Route::post('/register', [AuthController::class, 'register'])->name('register');
+   Route::post('/login', [AuthController::class, 'login'])->name('login');
    Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 });
 Route::middleware(['auth:sanctum'])->group(function () {

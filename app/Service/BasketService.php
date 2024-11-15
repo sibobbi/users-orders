@@ -17,9 +17,13 @@ class BasketService
 
                 return $basket;
             }
-            $product_basket->quantity = $quantity;
-            $product_basket->price = $product->price;
-            $product_basket->sum = $product->price * $quantity;
+
+            $basket->products()->updateExistingPivot($product_basket->id, [
+                'quantity' => $quantity,
+                'price' => $product->price,
+                'sum' => $product->price * $quantity
+            ]);
+            $product_basket->save();
         } elseif ($quantity !== 0) {
             $basket->products()->attach($product->id, [
                 'quantity' => $quantity,

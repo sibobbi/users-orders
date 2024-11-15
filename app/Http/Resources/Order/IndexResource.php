@@ -13,7 +13,7 @@ class IndexResource extends JsonResource
         return [
             'id' => $this->id,
             'paymentType' => $this->paymentType,
-            'products' => ProductResource::collection($this->products()),
+            'products' => ProductResource::collection($this->products),
         ];
     }
 }

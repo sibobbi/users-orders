@@ -24,7 +24,7 @@ class OrderController extends Controller
     {
         $sort = $request->validated('sort') ?? false;
         $filter = OrderStatus::tryFrom($request->validated('filter'));
-        $orderQuery = $request->user()->orders()->query();
+        $orderQuery = $request->user()->orders();
 
         if ($sort) {
             $orderQuery->orderBy('created_at', $sort);
@@ -43,20 +43,22 @@ class OrderController extends Controller
 
         try {
             DB::beginTransaction();
-            $order = $service->create($basket, $paymentType);
+            $order = $service->create($basket, $paymentType, $request->user());
             $basketService->clear($basket);
             DB::commit();
 
             return OrderResource::make($order);
         } catch (\Exception $exception) {
             DB::rollBack();
+            throw $exception;
         }
     }
 
-    public function update(Order $order)
+    public function update($payment, Order $order )
     {
+
         $order->update(['status' => OrderStatus::PAID]);
 
-        return response()->status(202);
+        return response()->json()->status(202);
     }
 }

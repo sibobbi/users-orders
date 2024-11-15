@@ -12,7 +12,7 @@ class UpdateRequest extends FormRequest
     {
         return [
             'product_id' => ['required','integer',Rule::exists(Product::class, 'id')],
-            'quantity' => ['required', 'integer', 'min:1']
+            'quantity' => ['required', 'integer', 'min:0']
         ];
     }
 }
